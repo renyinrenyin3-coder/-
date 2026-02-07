@@ -1,10 +1,12 @@
+import streamlit as st
+st.title("部署成功 ✅")
+st.stop()
+
 import re
 import time
 import requests
 import pandas as pd
 import streamlit as st
-
-st.set_page_config(page_title="基金助手", layout="wide")
 st.title("📊 个人基金助手")
 
 UA = {"User-Agent": "Mozilla/5.0"}
