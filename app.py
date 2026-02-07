@@ -20,8 +20,10 @@ def load_funds():
    import ast
 
 m = re.search(r"var r\s*=\s*(\[\[.*?\]\]);", r.text, re.S)
+
 if not m:
-    raise ValueError("数据解析失败：没有匹配到 var r = [[...]]，可能被网站拦截或页面改版了")
+    st.error("❌ 取不到基金数据，网站可能封IP了")
+    st.stop()
 
 return ast.literal_eval(m.group(1))
 
