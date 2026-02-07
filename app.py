@@ -17,9 +17,13 @@ NAV_URL = "https://fundf10.eastmoney.com/F10DataApi.aspx?type=lsjz&code={}&page=
 @st.cache_data(ttl=86400)
 def load_funds():
     r = requests.get(LIST_URL, headers=UA)
-    m = re.search(r"var r = (\\[\\[.*?\\]\\]);", r.text, re.S)
-    return eval(m.group(1))
+   import ast
 
+m = re.search(r"var r\s*=\s*(\[\[.*?\]\]);", r.text, re.S)
+if not m:
+    raise ValueError("数据解析失败：没有匹配到 var r = [[...]]，可能被网站拦截或页面改版了")
+
+return ast.literal_eval(m.group(1))
 
 @st.cache_data(ttl=30)
 def get_gz(code):
